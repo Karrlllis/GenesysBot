@@ -33,6 +33,14 @@
 <input id="clickMe" type="button" value="Reset Bot" onclick="clearSession();" />
 
 <script>
+
+  Genesys("subscribe", "Messenger.opened", function(){
+    console.log('Open the chat window');
+    Genesys("command", "MessagingService.sendMessage", {
+        message: ""
+      });
+  });
+
   function clearSession() {
     Genesys("command", "MessagingService.clearSession");
     Genesys("command", "MessagingService.resetConversation");    
