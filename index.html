@@ -36,6 +36,7 @@
   function clearSession() {
     Genesys("command", "MessagingService.clearSession");
     Genesys("command", "MessagingService.resetConversation");    
+    localStorage.clear();
     // do some more
   }
 </script>
