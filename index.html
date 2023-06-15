@@ -27,10 +27,15 @@
 <body>
   
 <div class="container">
-  Test
+  Test Site
 </div>
 
+<input id="clickMe" type="button" value="clickme" onclick="clearSession();" />
+
 <script>
+  function clearSession() {
+    Genesys("command", "MessagingService.clearSession");  
+  }
 </script>
 
 </body>
