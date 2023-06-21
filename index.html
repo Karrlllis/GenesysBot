@@ -10,43 +10,47 @@
 
   <script type="text/javascript" charset="utf-8">
     (function (g, e, n, es, ys) {
-        g['_genesysJs'] = e;
-        g[e] = g[e] || function () {
+      g['_genesysJs'] = e;
+      g[e] = g[e] || function () {
         (g[e].q = g[e].q || []).push(arguments)
-        };
-        g[e].t = 1 * new Date();
-        g[e].c = es;
-        ys = document.createElement('script'); ys.async = 1; ys.src = n; ys.charset = 'utf-8'; document.head.appendChild(ys);
+      };
+      g[e].t = 1 * new Date();
+      g[e].c = es;
+      ys = document.createElement('script'); ys.async = 1; ys.src = n; ys.charset = 'utf-8'; document.head.appendChild(ys);
     })(window, 'Genesys', 'https://apps.mypurecloud.com.au/genesys-bootstrap/genesys.min.js', {
-        environment: 'prod-apse2',
-        deploymentId: '0b2830a3-cc11-4619-be8e-114fc3ec63ad'
+      environment: 'prod-apse2',
+      deploymentId: '0b2830a3-cc11-4619-be8e-114fc3ec63ad'
     });
-    </script>
+  </script>
+
+<script src="inviteform.js" defer></script>
 </head>
 
 <body>
-  
-<div class="container">
-  Test Site
-</div>
 
-<input id="clickMe" type="button" value="Reset Bot" onclick="clearSession();" />
+  <div class="container">
+    Test Site
+  </div>
 
-<script>
+  <input id="clickMe" type="button" value="Reset Bot" onclick="clearSession();" />
 
-  Genesys("subscribe", "Messenger.opened", function(){
-    console.log('Open the chat window');
- 
-  });
+  <script>
 
-  function clearSession() {
-    Genesys("command", "MessagingService.clearSession");
-    Genesys("command", "MessagingService.resetConversation");    
-    localStorage.clear();
-    location.reload();
-    // do some more
-  }
-</script>
+    Genesys("subscribe", "Messenger.opened", function () {
+      console.log('Open the chat window');
+
+    });
+
+    function clearSession() {
+      Genesys("command", "MessagingService.clearSession");
+      Genesys("command", "MessagingService.resetConversation");
+      localStorage.clear();
+      location.reload();
+      // do some more  
+    }  
+
+  </script>
 
 </body>
+
 </html>
