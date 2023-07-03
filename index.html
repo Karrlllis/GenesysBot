@@ -2,10 +2,10 @@
 <html lang="en">
 
 <head>
-  <meta name="description" content="GSummit Bot" />
+  <meta name="description" content="ANZ G-Summit Bot" />
   <meta charset="utf-8">
-  <title>GSummit Bot</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ANZ G-Summit Bot</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="author" content="">
 
   <script type="text/javascript" charset="utf-8">
@@ -26,19 +26,20 @@
 <script src="inviteform.js" defer></script>
 </head>
 
-<body>
-
-  <div class="container">
-    Test Site
-  </div>
-
+<body >
   <input id="clickMe" type="button" value="Reset Bot" onclick="clearSession();" />
+  <img src="GSummit Logowebp.png" width="100%" style="margin: 50px 0 0 0;"/>
+  <img src="bot.png" style="display: block; width: 50%; margin: auto;"/>
+  
 
   <script>
 
     Genesys("subscribe", "Messenger.opened", function () {
-      console.log('Open the chat window');
+      console.log('Genesys: Open the chat window!');
+    });
 
+    Genesys("subscribe", "MessagingService.conversationDisconnected", function({data}){
+      console.log('Genesys: Dissconected - ' + data);
     });
 
     function clearSession() {

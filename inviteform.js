@@ -14,9 +14,9 @@ function toggleMessenger() {
       Genesys('command', 'Database.set', {
         messaging: {
           customAttributes: {
-            firstName: document.getElementById('fname').value,
-            lastName: document.getElementById('lname').value,
-            email: document.getElementById('email').value,
+            //firstName: document.getElementById('fname').value,
+            //lastName: document.getElementById('lname').value,
+            email: document.getElementById('email').value.toLowerCase(),
             //case: document.getElementById('case').value,
             //queueName: document.getElementById('queue').value,
           },
@@ -36,7 +36,7 @@ function closeLauncher() {
 }
 
 function openLauncher() {
-  let session = JSON.parse(localStorage.getItem('_1c077c42-7a8e-421b-85b1-3a4ae63f39f9:gcmcsessionActive'))
+  let session = JSON.parse(localStorage.getItem(`_${deploymentId}:gcmcsessionActive`))
   let input = document.getElementById('input')
   console.log(session?.value)
   if (session?.value) {
@@ -98,6 +98,7 @@ let option1 = document.createElement('option')
 let option2 = document.createElement('option')
 let option3 = document.createElement('option')
 let submit = document.createElement('button')
+let gsummitImage = document.createElement('img')
 
 input.id = 'input'
 input.hidden = true
@@ -120,7 +121,7 @@ header.style = `display: inline-flex;
       height: 60px;`
 title.style = `margin: 0;
       padding-left: 25px;`
-title.innerText = 'Please give us some info'
+title.innerText = 'Please help us identify you'
 minButton.style = `position: absolute;
       width: 50px;
       right: 8px;
@@ -157,7 +158,7 @@ emailL.innerText = 'Email'
 emailL.style = `font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', 'sans-serif';`
 emailI.id = 'email'
 emailI.style = `      width: 100%; padding: 12px 20px; margin: 8px 0; display: inline-block; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;`
-emailI.placeholder = 'Your email address..'
+emailI.placeholder = 'Your G-Summit Registration email.'
 caseL.innerText = 'Case'
 caseL.style = `font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', 'sans-serif';`
 caseI.id = 'case'
@@ -183,7 +184,7 @@ submit.style = `width: 100%;
 background-color: ${hexColor};
 color: white;
 padding: 14px 20px;
-margin: 100px 0 0 0;
+margin: 30px 0 0 0;
 border: none;
 border-radius: 4px;
 cursor: pointer;`
@@ -192,13 +193,18 @@ submit.onclick = function () {
   toggleMessenger()
 }
 
+gsummitImage.src="GSummit Logowebp.png"
+gsummitImage.style = `width: 100%;
+  margin: 10px 0px 10px 0px;`
+
 //queueS.appendChild(option1)
 //queueS.appendChild(option2)
 //queueS.appendChild(option3)
-form.appendChild(fnameL)
-form.appendChild(fnameI)
-form.appendChild(lnameL)
-form.appendChild(lnameI)
+//form.appendChild(fnameL)
+//form.appendChild(fnameI)
+//form.appendChild(lnameL)
+//form.appendChild(lnameI)
+form.appendChild(gsummitImage)
 form.appendChild(emailL)
 form.appendChild(emailI)
 //form.appendChild(caseL)
@@ -206,6 +212,32 @@ form.appendChild(emailI)
 //form.appendChild(queueL)
 //form.appendChild(queueS)
 form.appendChild(submit)
+//form.appendChild(gsummitImage)
 input.appendChild(form)
 
 document.body.appendChild(input)
+
+//listen to screen sizing for mobile & dynamic pc
+function sizeChanged() {
+  if (window.innerWidth < 600 && screenSize != 'mobile') {
+    screenSize = 'mobile'
+    let input = document.getElementById('input')
+    input.style.width = '100%'
+    input.style.height = '100%'
+    input.style.bottom = 0
+    input.style.right = 0
+  }
+  if (window.innerWidth > 600 && screenSize != 'pc') {
+    screenSize = 'pc'
+    let input = document.getElementById('input')
+    input.style.width = '408px'
+    input.style.height = '648px'
+    input.style.bottom = '30px'
+    input.style.right = '30px'
+  }
+}
+
+let screenSize = ''
+window.addEventListener('resize',sizeChanged)
+sizeChanged()
+openLauncher()
