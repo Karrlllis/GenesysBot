@@ -26,7 +26,7 @@
 <script src="inviteform.js" defer></script>
 </head>
 
-<body >
+<body style="background-color:#FFFFFF">
   <input id="clickMe" type="button" value="Reset Bot" onclick="clearSession();" />
   <img src="GSummit Logowebp.png" width="100%" style="margin: 50px 0 0 0;"/>
   <img src="bot.png" style="display: block; width: 50%; margin: auto;"/>
@@ -45,9 +45,10 @@
     function clearSession() {
       Genesys("command", "MessagingService.clearSession");
       Genesys("command", "MessagingService.resetConversation");
+      localStorage.removeItem('0b2830a3-cc11-4619-be8e-114fc3ec63ad:gcmcsessionActive')
       localStorage.clear();
+      localStorage.clear(); //really clear    
       location.reload();
-      // do some more  
     }  
 
   </script>

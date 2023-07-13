@@ -2,7 +2,7 @@
 
 //Variables to change in your deployment
 const deploymentId = '0b2830a3-cc11-4619-be8e-114fc3ec63ad'  //Your WebMessenger DeploymentId
-const hexColor = '#FD7E0D'  //Color theme
+const hexColor = '#FF4F1F'  //Color theme
 
 function toggleMessenger() {
   Genesys(
@@ -11,12 +11,17 @@ function toggleMessenger() {
     {},
     function (o) {
       closeLauncher()
+      const urlParams = new URL(window.location.toLocaleString()).searchParams;
+      let source =  urlParams.get('src');
+      console.log(source);
+
       Genesys('command', 'Database.set', {
         messaging: {
           customAttributes: {
             //firstName: document.getElementById('fname').value,
             //lastName: document.getElementById('lname').value,
             email: document.getElementById('email').value.toLowerCase(),
+            src: source
             //case: document.getElementById('case').value,
             //queueName: document.getElementById('queue').value,
           },
@@ -157,8 +162,11 @@ lnameI.placeholder = 'Your last name..'
 emailL.innerText = 'Email'
 emailL.style = `font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', 'sans-serif';`
 emailI.id = 'email'
-emailI.style = `      width: 100%; padding: 12px 20px; margin: 8px 0; display: inline-block; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;`
+emailI.style = `      width: 100%; padding: 12px 20px; margin: 8px 0; display: inline-block; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;font-size: large;`
 emailI.placeholder = 'Your G-Summit Registration email.'
+emailI.oninput = function () {
+  checkEmail();
+}
 caseL.innerText = 'Case'
 caseL.style = `font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', 'sans-serif';`
 caseI.id = 'case'
@@ -181,14 +189,16 @@ option2.innerText = 'Support'
 option3.value = 'general'
 option3.innerText = 'General'
 submit.style = `width: 100%;
-background-color: ${hexColor};
+background-color: #808080;
 color: white;
 padding: 14px 20px;
 margin: 30px 0 0 0;
 border: none;
-border-radius: 4px;
+border-radius: 4px
 cursor: pointer;`
 submit.innerText = 'Submit'
+submit.id = "button"
+submit.disabled = true;
 submit.onclick = function () {
   toggleMessenger()
 }
@@ -236,6 +246,36 @@ function sizeChanged() {
     input.style.right = '30px'
   }
 }
+
+//check if email entered
+function checkEmail(){
+  var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  let email = document.getElementById('email')
+  let button = document.getElementById('button')
+  
+  if(email.value.match(mailformat)){
+    button.disabled = false;
+    submit.style = `width: 100%;
+      background-color: ${hexColor};        
+      color: white;
+      padding: 14px 20px;
+      margin: 30px 0 0 0;
+      border: none;
+      border-radius: 4px
+      cursor: pointer;`
+  } else {
+    button.disabled = true;
+    submit.style = `width: 100%;
+      background-color: #808080;
+      color: white;
+      padding: 14px 20px;
+      margin: 30px 0 0 0;
+      border: none;
+      border-radius: 4px
+      cursor: pointer;`
+  }
+}
+
 
 let screenSize = ''
 window.addEventListener('resize',sizeChanged)
